@@ -1,8 +1,8 @@
 % Routes file.
 
 % Formats:
-{"/article/comment/create", [{controller, "comment"}, {action, "create"}]}.
-%	{"/article/comment/delete", [{controller, "comment"}, {action, "delete"}]}.
+{"/articles/comments/create", [{controller, "comments"}, {action, "create"}]}.
+%	{"/articles/comments/delete", [{controller, "comments"}, {action, "delete"}]}.
 %   {"/some/route", [{controller, "Controller"}, {action, "Action"}, {id, "42"}]}.
 %   {"/(some|any)/route/(\\d+)", [{controller, '$1'}, {action, "Action"}, {id, '$2'}]}.
 % {"/comment/delete/(?<comment_id>\\d+)", [{controller, "comment"}, {action, "delete"}, {id, '$comment_id'}]}.
@@ -15,7 +15,7 @@
 % Note that routing across applications results in a 302 redirect.
 
 % Front page
-{"/", [{controller, "article"}, {action, "index"}]}.
+{"/", [{controller, "articles"}, {action, "index"}]}.
 
 % 404 File Not Found handler
 % {404, [{controller, "world"}, {action, "lost"}]}.

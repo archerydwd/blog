@@ -1,0 +1,17 @@
+<h1>Listing articles</h1>
+<a href="{% url action="create" %}">New article</a>
+<table>
+	<tr>
+		<th>Title</th>
+		<th>Text</th>
+		<th colspan="3"></th>
+		{% for article in articles %}
+			<tr>
+				<td>{{ article.article_title }}</td>
+				<td>{{ article.article_text }}</td>
+				<td><a href="/articles/show/{{ article.id }}">Show</a></td>
+				<td><a href="/articles/update/{{ article.id }}">Edit</a></td>
+				<td><a href="/articles/delete/{{ article.id }}">Destroy</a></td>
+			</tr>
+		{% endfor %}
+</table>
