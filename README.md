@@ -8,7 +8,7 @@ I have also built this series of applications using Ruby on Rails and will be pe
 tests on them.
 
 Once I have tested both applications I will publish the results, which can then be used as a benchmark for others 
-to use when trying to choose a framework. You can build this app using a certain framework of your choosing and 
+to use when trying to choose a framework. You can build this app using a framework of your choosing and 
 follow the testing mechanisms that I will describe and then compare the results against my benchmark. 
 
 Happy Testing.
