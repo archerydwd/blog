@@ -38,6 +38,18 @@ cd ../blog
 
 ###Building the application
 
+**Starting the development server**
+
+To start the dev server:
+```
+./init-dev.sh
+```
+
+To stop the development server:
+```
+ctrl + c
+```
+
 **Create the article model**
 
 First we will need an article model, this file lives at: src/model/article.erl and you should 
@@ -69,11 +81,11 @@ Also note that the modelname is plural here.
 
 This controller gets all the articles and provides them in a list to the index template that we will now create.
 Please note the name of the actions in this controller have to be the same as the template they are calling.
-eg: index will get us the index.html template.
+Eg: index will get us the index.html template.
 
 **Display all articles template**
 
-The next thing we will need to do is create the template for displaying the articles, eg an index page. This file 
+The next thing we will need to do is create the template for displaying the articles, eg: an index page. This file 
 lives at: src/view/articles/index.html you will need to create the directory src/view/articles, please note it is also plural.
 >mkdir src/view/articles
 ```
@@ -106,7 +118,7 @@ We first must create the comment model: src/model/comment.erl
 -compile(export_all).
 -belongs_to(article).
 ```
-The above says that each comment should belong to 1 article.
+The above says that each comment should belong to one article.
 
 To follow this up we must add the following -has line to the src/model/article.erl file.
 ```
@@ -116,7 +128,7 @@ To follow this up we must add the following -has line to the src/model/article.e
 -has({comments, many}).
 ```
 
-While the server is running, navigate to localhost:8001/doc/article and in that you should see comments/0 and comments/1 methods have been made available. Also navigate to localhost:8001/doc/comment and you will see that article/0 and article/1 methods have been made available. If these methods are not here, it means that you have made a mistake in the above 2 code boxes.
+While the server is running, navigate to: http://localhost:8001/doc/article. You should see the comments/0 and comments/1 methods have been made available. Also navigate to: http://localhost:8001/doc/comment and you will see that the article/0 and article/1 methods have been made available. If these methods are not here, it means that you have made a mistake in one of the above two code boxes.
 
 **Display individual articles**
 
@@ -145,7 +157,7 @@ show('GET', [ArticleId]) ->
 
 ```
 
-We now need the src/view/articles/show.html file:
+We now need the: src/view/articles/show.html file:
 ```
 <html>
   <body>
@@ -179,7 +191,7 @@ We need to add a link to the create template from the index template (src/view/a
 
 The action should be the same name that you have in your controller and the same name of the create template.
 
-now we will add the create template to src/view/articles/create.html
+Now we will add the create template to: src/view/articles/create.html
 ```
 <html>
   <body>
@@ -210,7 +222,7 @@ now we will add the create template to src/view/articles/create.html
 </html>
 ```
 
-And finally we will add the create action to the src/controller/blog_articles_controller.erl
+Finally we will add the create action to: src/controller/blog_articles_controller.erl
 ```
 ...
 create('GET', []) -> ok;
@@ -221,29 +233,12 @@ create('POST', []) -> Article = article:new(id, Req:post_param("article_title"),
   end.
 ```
 
-The above create action has 2 versions, one is for displaying the create page, and one is for processing the 
+The above create action has two versions, one is for displaying the create page, and one is for processing the 
 posted data from the create page. It extracts the information by use of Req:post_param() and then creates a 
-new article with the article:new() method and then saves it with the :save() method. If it saves ok, then a 
-redirect occurs to view that article otherwise we get an error because the validation_tests in the model have 
-failed, again this is explained in the adding validation section.
+new article with the article:new() method and then saves it with the :save() method. 
+If it saves ok, then a redirect occurs to view that article. Otherwise we get an error because the validation_tests in the model have failed, again this is explained in the adding validation section.
 
-Now navigate to: http://localhost:8001/articles/create in your browser and you should see a form for 
-creating the articles, submit a few. You should see them displayed individually and they should 
-display in the list of articles on the index page.
-
-
-
-**Starting the development server**
-
-To start the dev server:
-```
-./init-dev.sh
-```
-
-oh and to stop the server:
-```
-ctrl + c
-```
+Now navigate to: http://localhost:8001/articles/create. You should see a form for creating the articles. Submit a few. You should see them displayed individually and they should display in the list of articles on the index page.
 
 **Deleting an article**
 
@@ -269,7 +264,7 @@ delete as per the following:
 ...
 ```
 
-We now need to add the delete action to the controller. src/controller/blog_articles_controller.erl
+We now need to add the delete action to the controller: src/controller/blog_articles_controller.erl
 ```
 ...
 delete('GET', [ArticleId]) ->
@@ -279,7 +274,7 @@ delete('GET', [ArticleId]) ->
 
 **Adding validation**
 
-In the creating new articles section above we seen the following code in the view:
+In the creating new articles section above we saw the following code in the view:
 ```
 {% if errors %}
   <ol>
@@ -289,7 +284,7 @@ In the creating new articles section above we seen the following code in the vie
   </ol>
 {% endif %}
 ```
-This code basically means if there are any reported errors, print them out, so where did these errors come from? well if we look at the controller:
+This code basically means if there are any reported errors, print them out. So where did these errors come from? Well if we look at the controller:
 ```
 create('GET', []) -> ok;
 create('POST', []) -> Article = article:new(id, Req:post_param("article_title"), Req:post_param("article_text")),
@@ -298,9 +293,13 @@ create('POST', []) -> Article = article:new(id, Req:post_param("article_title"),
     {error, Errors} -> {ok, [{errors, Errors}, {article, Article}]}
   end.
 ```
-We see the create method either performs a redirect to display the saved article, or if there was an error it pushes those errors back instead. So now you are asking: Where is the new article being checked for errors? The answer to this is: It is not currently being checked and we now need to add the code to check for errors.
+We see the create method either performs a redirect to display the saved article, or if there was an error it pushes those errors back instead. 
 
-To add validation that only allows article titles to be longer than 5 characters, in the src/model/article.erl add the following code:
+So now you are asking: Where is the new article being checked for errors? 
+
+The answer to this is: It is not currently being checked and we now need to add the code to check for errors.
+
+To add validation that only allows article titles to be longer than five characters, in: src/model/article.erl add the following code:
 ```
 -module(article, [Id, ArticleTitle, ArticleText]).
 -compile(export_All).
@@ -308,13 +307,13 @@ To add validation that only allows article titles to be longer than 5 characters
 
 validation_tests() ->
  [{fun() -> length(ArticleTitle) > 0 end, "Title can't be blank"},
-  {fun() -> length(ArticleTitle) >= 5 end, "Title is too short (minimum is 5 characters)"}].
+  {fun() -> length(ArticleTitle) >= 5 end, "Title is too short (minimum is five characters)"}].
 ```
-Then if you navigate to localhost:8001/article/create and enter a title that is less than 5 characters long, it will produce and display an error. This will also happen if you don’t enter a title, you will get both errors. So what is happening here? The controller is trying to save an article, but because we have declared this validation_tests method in the model, they must execute first, if an error is found, the controller then passes these errors back to the view, which then displays them for your viewing convenience.
+Then if you navigate to: http://localhost:8001/article/create and enter a title that is less than five characters long, it will produce and display an error stating that the title is too short. This will also happen if you don’t enter a title, but you will also get an error stating "Title can't be blank". So what is happening here? The controller is trying to save an article, but because we have declared this validation_tests method in the model, they must execute first. If an error is found, the controller then passes these errors back to the view, which then displays them.
 
 **Updating articles**
 
-To add the update functionality we need to create a new file in: src/view/article/update.html and insert the following into it:
+To add the update functionality we need to create a new file: src/view/article/update.html and insert the following:
 ```
 <html>
   <body>
@@ -335,7 +334,7 @@ To add the update functionality we need to create a new file in: src/view/articl
   </body>
 </html>
 ```
-We need to add a link to the src/view/articles/show.html file so we can edit the article:
+We need to add a link to: src/view/articles/show.html so we can edit the article:
 ```
 ...
   {{ article.article_text }}
@@ -344,7 +343,7 @@ We need to add a link to the src/view/articles/show.html file so we can edit the
 a href=”/articles/update/{{ article.id }}”>Edit</a>
 ```
 
-Now we also need to add a link into the src/view/articles/index.html file:
+Now we also need to add a link into the index: src/view/articles/index.html:
 ```
 ...
   <tr>
@@ -357,7 +356,7 @@ Now we also need to add a link into the src/view/articles/index.html file:
 ```
 
 In the above we just added a link that calls the update action in the controller with the id of the article.
-Now to get the update to work we need to add an update action to the controller at: src/controller/blog_articles_controller.erl and insert this:
+Now to get the update to work we need to add an update action to the controller: src/controller/blog_articles_controller.erl:
 ```
 ...
 update('GET', [ArticleId]) -> Article = boss_db:find(ArticleId), {ok, [{article, Article}]};
@@ -368,16 +367,15 @@ update('POST', [ArticleId]) ->
    EditedArticle:save(),
    {redirect, [{action, "index"}]}.
 ```
-This action has 2 clauses, 1 which gives back that article and 1 which accepts a form submission and updates the information of that article.
+This action has two clauses, one which gives back a page for that article, and one which accepts a form submission and updates the information of that article.
 
 **Creating comments**
 
 *Issue:*
 
-With this I had a problem, due to the nature of chicago boss each action maps to a view, and due to the comments 
-being created in the src/articles/show.html view, when I submitted the form, it is automatically going to the 
-controller: src/controller/blog_articles_controller.erl and hitting the show action, Instead of going to the 
-controller: src/controller/blog_comments_controller.erl and hitting the create method.
+With this I had a problem. Due to the nature of chicago boss each action maps to a view, and due to the comments 
+being created in: src/*articles*/show.html. When I submitted the form, it is automatically going to the 
+controller: src/controller/blog*_articles_*controller.erl and hitting the show action for articles instead of going to the comments controller: src/controller/blog*_comments_*controller.erl and hitting the create method there.
 
 *Fix:*
 
