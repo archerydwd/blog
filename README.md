@@ -68,7 +68,7 @@ file is: APPNAME_MODELNAME_CONTROLLER.ERL so for our case, it should be: blog_ar
 Also note that the modelname is plural here.
 
 This controller gets all the articles and provides them in a list to the index template that we will now create.
-please note the name of the actions in this controller have to be the same as the template they are calling.
+Please note the name of the actions in this controller have to be the same as the template they are calling.
 eg: index will get us the index.html template.
 
 **Display all articles template**
