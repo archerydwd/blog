@@ -48,7 +48,7 @@ insert the following into it:
 ```
 We need to explain some things here. 
 
-* The name of the file should be non-plural and in -module the name should be the exact same (not including .erl extension of course)
+* The name of the file should be non-plural and in the -module part, the name should be the exact same (not including .erl extension of course)
 * The attribute list is the [Id, ArticleTitle, ArticleText] part and this should always start with Id, which sets Chicago Boss to auto generate the id. The names should all use camel case (even though in the database it will be article_title).
 * -compile(export_all) is put in to export all functions available to the article model.
 
