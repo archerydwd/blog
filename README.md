@@ -374,8 +374,8 @@ This action has two clauses, one which gives back a page for that article, and o
 *Issue:*
 
 With this I had a problem. Due to the nature of chicago boss each action maps to a view, and due to the comments 
-being created in: src/*articles*/show.html. When I submitted the form, it is automatically going to the 
-controller: src/controller/blog*_articles_*controller.erl and hitting the show action for articles instead of going to the comments controller: src/controller/blog*_comments_*controller.erl and hitting the create method there.
+being created in: src/articles/show.html. When I submitted the form, it is automatically going to the 
+controller: src/controller/blog_articles_controller.erl and hitting the show action for articles instead of going to the comments controller: src/controller/blog_comments_controller.erl and hitting the create method there.
 
 *Fix:*
 
