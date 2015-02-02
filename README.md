@@ -64,8 +64,8 @@ index('GET', []) ->
     {ok, [{articles, Articles}]}.
 ```
 Again in the above we are placing the name of the file in the module part. Please note the structure for the name of this 
-file is: APPNAME_MODELNAME_CONTROLLER.ERL so for our case the appname is blog, the modelname is articles and then controller: 
-blog_articles_controller.erl also note that the modelname is plural here.
+file is: APPNAME_MODELNAME_CONTROLLER.ERL so for our case, it should be: blog_articles_controller.erl. 
+Also note that the modelname is plural here.
 
 This controller gets all the articles and provides them in a list to the index template that we will now create.
 please note the name of the actions in this controller have to be the same as the template they are calling.
