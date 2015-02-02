@@ -1,17 +1,13 @@
 # Chicago Boss Blog Application
 
 I built this app with the Chicago Boss framework to be used as part of a series of applications that I will be 
-performing load tests on. 
+performing tests on. This is a Chicago Boss version of the Ruby on Rails blog application: https://github.com/archerydwd/rails-blog which I also developed for the following reason.
 
-I am going to be performing tests on this app using some load testing tools such as Tsung and Basho bench. 
-I have also built this series of applications using Ruby on Rails and will be performing the same benchmarking 
-tests on them.
+I am going to be performing tests on this app using some load testing tools such as Tsung, J-Meter and Basho bench. 
 
-Once I have tested both applications I will publish the results, which can then be used as a benchmark for others 
-to use when trying to choose a framework. You can build this app using a framework of your choosing and 
-follow the testing mechanisms that I will describe and then compare the results against my benchmark. 
+Once I have tested this application and the Ruby on Rails verison of it, I will publish the results, which can then be used as a benchmark for others to use when trying to choose a framework.
 
-Happy Testing.
+You can build this app using a framework of your choosing and then follow the testing mechanisms that I will describe and then compare the results against my benchmark to get an indication of performance levels of your chosen framework.
 
 ###Installing Erlang and Chicago Boss
 
