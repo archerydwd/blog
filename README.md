@@ -374,22 +374,21 @@ This action has two clauses, one which gives back a page for that article, and o
 *Issue:*
 
 With this I had a problem. Due to the nature of chicago boss each action maps to a view, and due to the comments 
-being created in: src/articles/show.html. When I submitted the form, it is automatically going to the 
-controller: src/controller/blog_articles_controller.erl and hitting the show action for articles instead of going to the comments controller: src/controller/blog_comments_controller.erl and hitting the create method there.
+being created in: src/articles/show.html. When I submit the form, it automatically goes to the 
+controller: src/controller/blog_articles_controller.erl and hits the show action for articles instead of going to the comments controller: src/controller/blog_comments_controller.erl and hitting the create method there.
 
 *Fix:*
 
-The solution that I arrived at for this issue was to create a new route that mapped to a create action in the 
-comments controller, this routing file lives at: priv/blog.routes and it will be populated with a few examples. 
-If you change the first example under the Formats: section to the following:
+The solution that I arrived at was to create a new route that mapped to the create action in the 
+comments controller. This routing file lives at: priv/blog.routes and it will be populated with a few examples. 
+If you change the first example under the formats section to the following:
 ```
 % Formats:
 {"/articles/comments/create", [{controller, "comments"}, {action, "create"}]}.
 ```
-this says that when the url: /article/comments/create is entered, map it to the controller: comments and the 
-action: create.
+This says that when the url: http://localhost:8001/article/comments/create is entered, map it to the controller: comments and the action: create.
 
-In order to display the comments and get this url input we need to edit the src/view/article/show.html file as per the following:
+In order to display the comments and get this url input we need to edit: src/view/article/show.html. As per the following:
 ```
 <html>
   <body>
@@ -435,7 +434,7 @@ In order to display the comments and get this url input we need to edit the src/
 
 The part for displaying the comments makes use of the article.comments method which returns all comments that belong to this article. We can then loop through them and display them. The part that is responsible for getting the correct url is the url action=”comments/create” attribute in the form head.
 
-Now we need a controller for the comment and an action called create in it, this file lives at: src/controller/blog_comments_controller.erl, insert the following into it:
+Now we need a controller for the comment and an action called 'create', this file lives at: src/controller/blog_comments_controller.erl, insert the following into it:
 ```
 -module(blog_comments_controller, [Req]).
 -compile(export_all).
@@ -448,7 +447,7 @@ We should now be able to add comments and see them while viewing an individual a
 
 **Deleting comments**
 
-We need to edit the src/view/articles/show.html file to include a link for deleting comments:
+We need to edit: src/view/articles/show.html to include a link for deleting comments:
 ```
 ...
     <strong>Comment:</strong>
@@ -459,10 +458,10 @@ We need to edit the src/view/articles/show.html file to include a link for delet
 ...
 ```
 
-The above form submits the comment’s id and article_id values, which are needed to delete the comment and 
+The above form submits the comment’s id and article_id values. Which are needed to delete the comment and 
 redirect back to show this article again.
 
-We need to insert the following into the src/controller/blog_comments_controller.erl file:
+We need to insert the following into: src/controller/blog_comments_controller.erl:
 ```
 ...
 delete('GET', [CommentId]) ->
@@ -475,11 +474,10 @@ delete('GET', [CommentId]) ->
     {article_id, ArticleId}
   ]}.
 ```
-In this, we are getting the comment by using the comment id and then we are getting the article id from the 
-comment, Deleting the comment and then redirecting to show. 
+In this, we are getting the comment by using the comment id. Then we are getting the article id from the 
+comment, deleting the comment and then redirecting to the show action. 
 
-So thats all there is to deleting comments, go to http://localhost:8001/articles/index and select an article 
-and add a few comments and then try to delete some of them.
+So that's all there is to deleting comments, go to: http://localhost:8001/articles/index and select an article, add a few comments and then try to delete some of them.
 
 **Routes**
 
@@ -492,24 +490,8 @@ This makes http://localhost:8001/ redirect to http://localhost:8001/articles/ind
 
 **The end**
 
-Thats all there is to it. This was my first self made (without a tutorial) application with Chicago Boss, so if you notice
-any problems or enhancements, please drop me a message. 
+That's all there is to it. This was my first self made (without a tutorial) application with Chicago Boss, so if you notice any problems or enhancements, please drop me a message.
 
 Thanks for reading and hopefully you learned something. :)
 
 Darren.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
