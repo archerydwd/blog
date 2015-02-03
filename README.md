@@ -11,6 +11,8 @@ You can build this app using a framework of your choosing and then follow the te
 
 ###Installing Erlang and Chicago Boss
 
+At the time of writing Erlang was at version: 17.4 and Chicago Boss at version: 0.8.12
+
 **Install Erlang on osx using Homebrew:**
 ```
 brew install erlang
