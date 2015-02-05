@@ -5,7 +5,7 @@ Please note this is not a tutorial, I have wrote it in that style so you can fol
 I built this app with the Chicago Boss framework to be used as part of a series of applications that I will be 
 performing tests on. This is a Chicago Boss version of the Ruby on Rails blog application: https://github.com/archerydwd/rails-blog.
 
-I am going to be performing tests on this app using some load testing tools such as Tsung, J-Meter and Basho bench. 
+I am going to be performing tests on this app using some load testing tools such as Tsung and J-Meter. 
 
 Once I have tested this application and the Ruby on Rails verison of it, I will publish the results, which can then be used as a benchmark for others to use when trying to choose a framework.
 
