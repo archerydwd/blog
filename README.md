@@ -492,7 +492,29 @@ Edit the priv/blog.routes file and input:
 ```
 This makes http://localhost:8001/ redirect to http://localhost:8001/articles/index
 
-**The end**
+###Getting Production Ready
+
+First we need to compile the project and then we need to start it in production mode.
+
+**Compile the application**
+
+To compile the app, change directory to the app and run the following command:
+
+```
+./rebar compile
+```
+
+This should produce a .beam file in the directory ebin/
+
+**Start in production mode**
+
+To run in production mode, use the following command:
+
+```
+./init.sh start
+```
+
+###The End
 
 That's all there is to it. This was my first self made (without a tutorial) application with Chicago Boss, so if you notice any problems or enhancements, please drop me a message.
 
