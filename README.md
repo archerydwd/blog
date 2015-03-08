@@ -11,7 +11,9 @@ Once I have tested this application and the Ruby on Rails verison of it, I will 
 
 You can build this app using a framework of your choosing and then follow the testing mechanisms that I will describe and then compare the results against my benchmark to get an indication of performance levels of your chosen framework.
 
+==
 ###Installing Erlang and Chicago Boss
+==
 
 At the time of writing Erlang was at version: 17.4 and Chicago Boss at version: 0.8.12
 
@@ -40,9 +42,12 @@ make app PROJECT=blog
 cd ../blog
 ```
 
+
 ###Building the application
 
+==
 **Starting the development server**
+==
 
 To start the dev server:
 ```
@@ -54,7 +59,9 @@ To stop the development server:
 ctrl + c
 ```
 
+==
 **Create the article model**
+==
 
 First we will need an article model, this file lives at: src/model/article.erl and you should 
 insert the following into it:
@@ -68,7 +75,9 @@ We need to explain some things here.
 * The attribute list is the [Id, ArticleTitle, ArticleText] part and this should always start with Id, which sets Chicago Boss to auto generate the id. The names should all use camel case (even though in the database it will be article_title).
 * -compile(export_all) is put in to export all functions available to the article model.
 
+==
 **Create the article controller**
+==
 
 The second thing we will need to do is to create the controller associated with the article. This file will live at: 
 src/controller/blog_articles_controller.erl
@@ -87,7 +96,9 @@ This controller gets all the articles and provides them in a list to the index t
 Please note the name of the actions in this controller have to be the same as the template they are calling.
 Eg: index will get us the index.html template.
 
+==
 **Display all articles template**
+==
 
 The next thing we will need to do is create the template for displaying the articles, eg: an index page. This file 
 lives at: src/view/articles/index.html you will need to create the directory src/view/articles, please note it is also plural.
@@ -114,7 +125,9 @@ lives at: src/view/articles/index.html you will need to create the directory src
 
 The Chicago Boss templating uses Django's templating, Documentation can be found here: http://www.chicagoboss.org/api-view.html
 
+==
 **Associating comments with articles**
+==
 
 We first must create the comment model: src/model/comment.erl
 ```
