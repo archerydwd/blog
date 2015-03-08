@@ -42,12 +42,11 @@ make app PROJECT=blog
 cd ../blog
 ```
 
-
+==
 ###Building the application
+==
 
-==
 **Starting the development server**
-==
 
 To start the dev server:
 ```
@@ -59,9 +58,7 @@ To stop the development server:
 ctrl + c
 ```
 
-==
 **Create the article model**
-==
 
 First we will need an article model, this file lives at: src/model/article.erl and you should 
 insert the following into it:
@@ -75,9 +72,7 @@ We need to explain some things here.
 * The attribute list is the [Id, ArticleTitle, ArticleText] part and this should always start with Id, which sets Chicago Boss to auto generate the id. The names should all use camel case (even though in the database it will be article_title).
 * -compile(export_all) is put in to export all functions available to the article model.
 
-==
 **Create the article controller**
-==
 
 The second thing we will need to do is to create the controller associated with the article. This file will live at: 
 src/controller/blog_articles_controller.erl
@@ -96,9 +91,7 @@ This controller gets all the articles and provides them in a list to the index t
 Please note the name of the actions in this controller have to be the same as the template they are calling.
 Eg: index will get us the index.html template.
 
-==
 **Display all articles template**
-==
 
 The next thing we will need to do is create the template for displaying the articles, eg: an index page. This file 
 lives at: src/view/articles/index.html you will need to create the directory src/view/articles, please note it is also plural.
@@ -125,9 +118,7 @@ lives at: src/view/articles/index.html you will need to create the directory src
 
 The Chicago Boss templating uses Django's templating, Documentation can be found here: http://www.chicagoboss.org/api-view.html
 
-==
 **Associating comments with articles**
-==
 
 We first must create the comment model: src/model/comment.erl
 ```
@@ -505,7 +496,9 @@ Edit the priv/blog.routes file and input:
 ```
 This makes http://localhost:8001/ redirect to http://localhost:8001/articles/index
 
+==
 ###Getting Production Ready
+==
 
 First we need to compile the project and then we need to start it in production mode.
 
@@ -527,7 +520,9 @@ To run in production mode, use the following command:
 ./init.sh start
 ```
 
+==
 ###The End
+==
 
 That's all there is to it. This was my first self made (without a tutorial) application with Chicago Boss, so if you notice any problems or enhancements, please drop me a message.
 
