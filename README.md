@@ -1,6 +1,6 @@
 # Chicago Boss Blog Application
 
-Please note this is not a tutorial, I have wrote it in that style so you can follow along. If you get into troble (like I did) try the mailing list or just google it. You will find that you will actually learn more from researching it and getting into tight spots. ;) 
+Please note this is not a tutorial, I have wrote it in that style so you can follow along. If you get into trouble (like I did) try the mailing list or just google it. You will find that you will actually learn more from researching it and getting into tight spots. ;) 
 
 I built this app with the Chicago Boss framework to be used as part of a series of applications that I will be 
 performing tests on. This is a Chicago Boss version of the Ruby on Rails blog application: https://github.com/archerydwd/rails-blog.
