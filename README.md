@@ -18,14 +18,20 @@ You can build this app using a framework of your choosing and then follow the te
 At the time of writing Erlang was at version: 17.4 and Chicago Boss at version: 0.8.14
 
 **Install Erlang on osx using Homebrew:**
+
 ```
 brew install erlang
 ```
+
 **Installing Erlang on Linux:**
+
 ```
+wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+sudo dpkg -i erlang-solutions_1.0_all.deb
 sudo apt-get update
 sudo apt-get install erlang
 ```
+
 **Install Chicago Boss:**
 
 >Download the latest release from the Chicago Boss site: http://www.chicagoboss.org
