@@ -15,7 +15,7 @@ You can build this app using a framework of your choosing and then follow the te
 ###Installing Erlang and Chicago Boss
 ==
 
-At the time of writing Erlang was at version: 17.4 and Chicago Boss at version: 0.8.12
+At the time of writing Erlang was at version: 17.4 and Chicago Boss at version: 0.8.14
 
 **Install Erlang on osx using Homebrew:**
 ```
@@ -31,13 +31,17 @@ sudo apt-get install erlang
 >Download the latest release from the Chicago Boss site: http://www.chicagoboss.org
 
 *Compile it*
+
 ```
 cd ChicagoBoss
+git checkout tags/v0.8.14
 make
 ```
 
 **Create the blog app**
+
 ```
+cd ChicagoBoss
 make app PROJECT=blog
 cd ../blog
 ```
