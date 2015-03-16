@@ -43,12 +43,20 @@ cd ChicagoBoss
 make
 ```
 
+If you get an when doing the make command, about uuid then do the following:
+
+>vim deps/boss_db/rebar.config
+
+Find the line that contains git://gitorious.org/avtobiff/erlang-uuid.git and change it to https://gitorious.org/avtobiff/erlang-uuid.git
+
+Now re-run the make command.
+
 **Create the blog app**
 
 ```
 cd ChicagoBoss
-make app PROJECT=blog
-cd ../blog
+make app PROJECT=cb_blog
+cd ../cb_blog
 ```
 
 ==
@@ -84,16 +92,16 @@ We need to explain some things here.
 **Create the article controller**
 
 The second thing we will need to do is to create the controller associated with the article. This file will live at: 
-src/controller/blog_articles_controller.erl
+src/controller/cb_blog_articles_controller.erl
 ```
--module(blog_articles_controller, [Req]).
+-module(cb_blog_articles_controller, [Req]).
 -compile(export_all).   
 index('GET', []) ->
     Articles = boss_db:find(article, []),
     {ok, [{articles, Articles}]}.
 ```
 Again in the above we are placing the name of the file in the module part. Please note the structure for the name of this 
-file is: APPNAME_MODELNAME_CONTROLLER.ERL so for our case, it should be: blog_articles_controller.erl. 
+file is: APPNAME_MODELNAME_CONTROLLER.ERL so for our case, it should be: cb_blog_articles_controller.erl. 
 Also note that the modelname is plural here.
 
 This controller gets all the articles and provides them in a list to the index template that we will now create.
@@ -105,6 +113,8 @@ Eg: index will get us the index.html template.
 The next thing we will need to do is create the template for displaying the articles, eg: an index page. This file 
 lives at: src/view/articles/index.html you will need to create the directory src/view/articles, please note it is also plural.
 >mkdir src/view/articles
+>touch src/view/articles/index.html
+>vim src/view/articles/index.html
 ```
 <html>
   <body>
@@ -130,14 +140,17 @@ The Chicago Boss templating uses Django's templating, Documentation can be found
 **Associating comments with articles**
 
 We first must create the comment model: src/model/comment.erl
+
 ```
 -module(comment, [Id, Commenter, Body, ArticleId]).
 -compile(export_all).
 -belongs_to(article).
 ```
+
 The above says that each comment should belong to one article.
 
 To follow this up we must add the following -has line to the src/model/article.erl file.
+
 ```
 -module(article, [Id, ArticleTitle, ArticleText]).
 -compile(export_All).
@@ -150,6 +163,7 @@ While the server is running, navigate to: http://localhost:8001/doc/article. You
 **Display individual articles**
 
 The first thing we will do is create a link to the individual articles in the src/view/articles/index.html file, by just adding the following:
+
 ```
 ...
   <tr>
@@ -165,7 +179,7 @@ The first thing we will do is create a link to the individual articles in the sr
 ...
 ```
 
-Then in the src/controller/blog_articles_controller.erl file we need to add the following action:
+Then in the src/controller/cb_blog_articles_controller.erl file we need to add the following action:
 ```
 ...
 show('GET', [ArticleId]) ->
@@ -209,6 +223,7 @@ We need to add a link to the create template from the index template (src/view/a
 The action should be the same name that you have in your controller and the same name of the create template.
 
 Now we will add the create template to: src/view/articles/create.html
+
 ```
 <html>
   <body>
@@ -239,7 +254,7 @@ Now we will add the create template to: src/view/articles/create.html
 </html>
 ```
 
-Finally we will add the create action to: src/controller/blog_articles_controller.erl
+Finally we will add the create action to: src/controller/cb_blog_articles_controller.erl
 ```
 ...
 create('GET', []) -> ok;
@@ -281,7 +296,7 @@ delete as per the following:
 ...
 ```
 
-We now need to add the delete action to the controller: src/controller/blog_articles_controller.erl
+We now need to add the delete action to the controller: src/controller/cb_blog_articles_controller.erl
 ```
 ...
 delete('GET', [ArticleId]) ->
@@ -326,11 +341,11 @@ validation_tests() ->
  [{fun() -> length(ArticleTitle) > 0 end, "Title can't be blank"},
   {fun() -> length(ArticleTitle) >= 5 end, "Title is too short (minimum is five characters)"}].
 ```
-Then if you navigate to: http://localhost:8001/article/create and enter a title that is less than five characters long, it will produce and display an error stating that the title is too short. This will also happen if you don’t enter a title, but you will also get an error stating "Title can't be blank". So what is happening here? The controller is trying to save an article, but because we have declared this validation_tests method in the model, they must execute first. If an error is found, the controller then passes these errors back to the view, which then displays them.
+Then if you navigate to: http://localhost:8001/articles/create and enter a title that is less than five characters long, it will produce and display an error stating that the title is too short. This will also happen if you don’t enter a title, but you will also get an error stating "Title can't be blank". So what is happening here? The controller is trying to save an article, but because we have declared this validation_tests method in the model, they must execute first. If an error is found, the controller then passes these errors back to the view, which then displays them.
 
 **Updating articles**
 
-To add the update functionality we need to create a new file: src/view/article/update.html and insert the following:
+To add the update functionality we need to create a new file: src/view/articles/update.html and insert the following:
 ```
 <html>
   <body>
@@ -373,7 +388,7 @@ Now we also need to add a link into the index: src/view/articles/index.html:
 ```
 
 In the above we just added a link that calls the update action in the controller with the id of the article.
-Now to get the update to work we need to add an update action to the controller: src/controller/blog_articles_controller.erl:
+Now to get the update to work we need to add an update action to the controller: src/controller/cb_blog_articles_controller.erl:
 ```
 ...
 update('GET', [ArticleId]) -> Article = boss_db:find(ArticleId), {ok, [{article, Article}]};
@@ -392,7 +407,7 @@ This action has two clauses, one which gives back a page for that article, and o
 
 With this I had a problem. Due to the nature of chicago boss each action maps to a view, and due to the comments 
 being created in: src/articles/show.html. When I submit the form, it automatically goes to the 
-controller: src/controller/blog_articles_controller.erl and hits the show action for articles instead of going to the comments controller: src/controller/blog_comments_controller.erl and hitting the create method there.
+controller: src/controller/cb_blog_articles_controller.erl and hits the show action for articles instead of going to the comments controller: src/controller/cb_blog_comments_controller.erl and hitting the create method there.
 
 *Fix:*
 
@@ -403,9 +418,9 @@ If you change the first example under the formats section to the following:
 % Formats:
 {"/articles/comments/create", [{controller, "comments"}, {action, "create"}]}.
 ```
-This says that when the url: http://localhost:8001/article/comments/create is entered, map it to the controller: comments and the action: create.
+This says that when the url: http://localhost:8001/articles/comments/create is entered, map it to the controller: comments and the action: create.
 
-In order to display the comments and get this url input we need to edit: src/view/article/show.html. As per the following:
+In order to display the comments and get this url input we need to edit: src/view/articles/show.html. As per the following:
 ```
 <html>
   <body>
@@ -451,9 +466,9 @@ In order to display the comments and get this url input we need to edit: src/vie
 
 The part for displaying the comments makes use of the article.comments method which returns all comments that belong to this article. We can then loop through them and display them. The part that is responsible for getting the correct url is the url action=”comments/create” attribute in the form head.
 
-Now we need a controller for the comment and an action called 'create', this file lives at: src/controller/blog_comments_controller.erl, insert the following into it:
+Now we need a controller for the comment and an action called 'create', this file lives at: src/controller/cb_blog_comments_controller.erl, insert the following into it:
 ```
--module(blog_comments_controller, [Req]).
+-module(cb_blog_comments_controller, [Req]).
 -compile(export_all).
 
 create('POST', []) -> Comment = comment:new(id, Req:post_param("commenter"), Req:post_param("body"), Req:post_param("id")),
@@ -465,12 +480,13 @@ We should now be able to add comments and see them while viewing an individual a
 **Deleting comments**
 
 We need to edit: src/view/articles/show.html to include a link for deleting comments:
+
 ```
 ...
     <strong>Comment:</strong>
     {{ comment.body }}
   </p>
-  <a href="/comment/delete/{{ comment.id }}">Delete Comment</a>
+  <a href="/comments/delete/{{ comment.id }}">Delete Comment</a>
 {% endfor %}
 ...
 ```
@@ -478,21 +494,19 @@ We need to edit: src/view/articles/show.html to include a link for deleting comm
 The above form submits the comment’s id and article_id values. Which are needed to delete the comment and 
 redirect back to show this article again.
 
-We need to insert the following into: src/controller/blog_comments_controller.erl:
+We need to insert the following into: src/controller/cb_blog_comments_controller.erl:
+
 ```
 ...
 delete('GET', [CommentId]) ->
   Comment = boss_db:find(CommentId),
   ArticleId = Comment:article_id(),
   boss_db:delete(CommentId),
-  {redirect, [
-    {controller, "article"},
-    {action, "show"},
-    {article_id, ArticleId}
-  ]}.
+  {redirect, [{controller, "article"},{action, "show"},{article_id, ArticleId}]}.
 ```
+
 In this, we are getting the comment by using the comment id. Then we are getting the article id from the 
-comment, deleting the comment and then redirecting to the show action. 
+comment, deleting the comment and then redirecting to the show action.
 
 So that's all there is to deleting comments, go to: http://localhost:8001/articles/index and select an article, add a few comments and then try to delete some of them.
 
