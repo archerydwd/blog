@@ -1,6 +1,6 @@
 # Chicago Boss Blog Application
 
-This is a tutorial for building a Chicago Boss blog application. If you get into trouble (like I did) try the mailing list or google it.
+This is a tutorial for building a Chicago Boss blog application. If you get into trouble (like I did) try the mailing list or google it. For all the problems that I had, I have noted below the fixes I used.
 
 I built this app with the Chicago Boss framework to be used as part of a series of applications that I will be 
 performing tests on. 
