@@ -4,7 +4,7 @@ This is a tutorial for building a Chicago Boss blog application. If you get into
 
 I built this app with the Chicago Boss framework to be used as part of a series of applications that I will be 
 performing benchmarking tests on.
-See my Ruby on Rails version of this application here: https://github.com/archerydwd/rails_blog
+See my Ruby on Rails version of this application here: https://github.com/archerydwd/ror_blog
 The Flask version is here: https://github.com/archerydwd/flask_blog
 
 I am going to be performing tests on this app using some load testing tools such as Gatling & Tsung. 
