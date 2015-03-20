@@ -596,8 +596,6 @@ To run in production mode, use the following command:
 =
 ###The End
 
-That's all there is to it. This was my first application with Chicago Boss, if you notice any errors or enhancements, please drop me a message.
-
 Thanks for reading and hopefully you learned something. :)
 
 Darren.
