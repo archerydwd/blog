@@ -596,6 +596,6 @@ To run in production mode, use the following command:
 =
 ###The End
 
-Thanks for reading and hopefully you learned something. :)
+Thanks for reading.
 
 Darren.
